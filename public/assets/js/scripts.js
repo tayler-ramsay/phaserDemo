@@ -1,13 +1,35 @@
-var demo = {};
+var demo = {}, luna;
+var centerX = 1500 / 2;
+var centerY = 1000 / 2;
+var speed = 4;
 demo.state0 = function() {};
 demo.state0.prototype = {
-  preload: function(){},
+  preload: function(){
+    game.load.image('luna',' ../public/assets/sprites/luna.png');
+  },
   create: function(){
     game.stage.backgroundColor = '#444444';
       addChangeStateEventListeners();
+      game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+      luna = game.add.sprite(centerX, centerY, 'luna');
+      luna.anchor.setTo(0.5, 0.5);
 
   },
-  update: function(){}
+  update: function(){
+    if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+      luna.x += speed;
+    }
+    else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+      luna.x -= speed;
+    }
+    if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+      luna.y += speed;
+    }
+    else if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+      luna.y -= speed;
+    }
+  }
 };
 
 function changeState(i, stateNum) {
@@ -123,7 +145,7 @@ demo.state9.prototype = {
   update: function(){}
 };
 
-var game = new Phaser.Game(600, 400, Phaser.AUTO);
+var game = new Phaser.Game(1500, 1000, Phaser.AUTO);
 game.state.add('state0', demo.state0);
 game.state.add('state1', demo.state1);
 game.state.add('state2', demo.state2);
